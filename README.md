@@ -1,9 +1,8 @@
 # Laravel Table Structure
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vicenterusso/laravel_table_structure.svg?style=flat-square)](https://packagist.org/packages/vicenterusso/laravel_table_structure)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/vicenterusso/laravel_table_structure/run-tests?label=tests)](https://github.com/vicenterusso/laravel_table_structure/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/vicenterusso/laravel_table_structure/Check%20&%20fix%20styling?label=code%20style)](https://github.com/vicenterusso/laravel_table_structure/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/vicenterusso/laravel_table_structure.svg?style=flat-square)](https://packagist.org/packages/vicenterusso/laravel_table_structure)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vicenterusso/laravel-table-structure.svg?style=flat-square)](https://packagist.org/packages/vicenterusso/laravel-table-structure)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/vicenterusso/laravel-table-structure/run-tests?label=tests)](https://github.com/vicenterusso/laravel-table-structure/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/vicenterusso/laravel-table-structure/Check%20&%20fix%20styling?label=code%20style)](https://github.com/vicenterusso/laravel-table-structure/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 
 This package helps you to get information about your table fields adding only a `trait` to your model. You can also optionally cache the results.
 
