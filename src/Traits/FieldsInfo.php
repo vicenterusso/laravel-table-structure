@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Cache;
 
 trait FieldsInfo
 {
-
     private static $use_cache;
     private static $cache_prefix;
 
@@ -24,7 +23,6 @@ trait FieldsInfo
      */
     public static function hasField($field): bool
     {
-
         $className = get_called_class();
         $table = with(new $className)->getTable();
 
@@ -43,16 +41,14 @@ trait FieldsInfo
      */
     public static function getAllFields(): array
     {
-
         $className = get_called_class();
         $table = with(new $className)->getTable();
         $cache_key = self::$cache_prefix.'.ALLFIELDS.' . strtoupper($table);
+
         return self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return \Schema::getColumnListing($table);
         }) : \Schema::getColumnListing($table);
-
     }
-
 
     /**
      * Return all fields of table
@@ -61,17 +57,15 @@ trait FieldsInfo
      */
     public static function getAllFieldsWithTypes(): array
     {
-
         $className = get_called_class();
         $table = with(new $className)->getTable();
 
         $cache_key = self::$cache_prefix.'.ALLFIELDS.WITH.TYPES.' . strtoupper($table);
+
         return self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return self::getArrayTableInfo($table);
         }) : self::getArrayTableInfo($table);
-
     }
-
 
     private static function getArrayTableInfo($table) : array
     {
@@ -90,7 +84,6 @@ trait FieldsInfo
      */
     public static function getAllFieldsWithTypeOf($field_type): array
     {
-
         $all_fields = self::getAllFieldsWithTypes();
         $fields = [];
         foreach ($all_fields as $field) {
@@ -100,8 +93,5 @@ trait FieldsInfo
         }
 
         return $fields;
-
     }
-
-
 }
