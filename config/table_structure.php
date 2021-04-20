@@ -17,7 +17,7 @@ return [
     | Cache Prefix
     |--------------------------------------------------------------------------
     |
-    |
+    | Custom prefix for cache keys. Avoid empty values
     |
     */
     'cache_prefix' => env('TABLE_STRUCT_PREFIX', 'TABLE_STRUCT'),

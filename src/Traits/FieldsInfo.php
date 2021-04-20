@@ -65,6 +65,7 @@ trait FieldsInfo
         $className = get_called_class();
         $table = with(new $className)->getTable();
 
+
         $cache_key = self::$cache_prefix.'.ALLFIELDS.WITH.TYPES.' . strtoupper($table);
         return self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return self::getArrayTableInfo($table);
@@ -73,15 +74,7 @@ trait FieldsInfo
     }
 
 
-    private static function getArrayTableInfo($table) : array
-    {
-        $fields = \Schema::getColumnListing($table);
-        $return = [];
-        foreach ($fields as $i => $field) {
-            $return[$i]['field'] = $field;
-            $return[$i]['type'] = \Schema::getColumnType($table, $field);
-        }
-    }
+
 
     /**
      * Return all fields of type 'field_type'
@@ -103,5 +96,16 @@ trait FieldsInfo
 
     }
 
+
+    private static function getArrayTableInfo($table) : array
+    {
+        $fields = \Schema::getColumnListing($table);
+        $return = [];
+        foreach ($fields as $i => $field) {
+            $return[$i]['field'] = $field;
+            $return[$i]['type'] = \Schema::getColumnType($table, $field);
+        }
+        return $return;
+    }
 
 }
