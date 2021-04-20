@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Cache;
 trait FieldsInfo
 {
 
+    private static $use_cache;
+
+    public static function bootFieldsInfo()
+    {
+        ray('bootFieldsInfo');
+        self::$use_cache = config('table_struct.use_cache');
+    }
+
     /**
      * Informa se existe uma determinada coluna na tabela
      *
@@ -19,11 +27,11 @@ trait FieldsInfo
         $className = get_called_class();
         $table = with(new $className)->getTable();
 
-        $cache_key = 'TABLE.HASFIELD.' . strtoupper($table) . '.' . strtoupper($field);
+        $cache_key = 'TABLE_STRUCT.HASFIELD.' . strtoupper($table) . '.' . strtoupper($field);
         Cache::forget($cache_key);
-        $all_fields = Cache::remember($cache_key, 5 * 60, function () use ($table) {
+        $all_fields = self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return \Schema::getColumnListing($table);
-        });
+        }) : \Schema::getColumnListing($table);
 
         return in_array($field, $all_fields);
     }
@@ -38,12 +46,11 @@ trait FieldsInfo
 
         $className = get_called_class();
         $table = with(new $className)->getTable();
-
-        $cache_key = 'TABLE.ALLFIELDS.' . strtoupper($table);
+        $cache_key = 'TABLE_STRUCT.ALLFIELDS.' . strtoupper($table);
         Cache::forget($cache_key);
-        $all_fields = Cache::remember($cache_key, 5 * 60, function () use ($table) {
+        $all_fields = self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return \Schema::getColumnListing($table);
-        });
+        }) : \Schema::getColumnListing($table);
 
         return $all_fields;
 
@@ -61,8 +68,8 @@ trait FieldsInfo
         $className = get_called_class();
         $table = with(new $className)->getTable();
 
-        $cache_key = 'TABLE.ALLFIELDS.WITH.TYPES.' . strtoupper($table);
-        Cache::forget($cache_key);
+        $cache_key = 'TABLE_STRUCT.ALLFIELDS.WITH.TYPES.' . strtoupper($table);
+        //Cache::forget($cache_key);
         $all_fields = Cache::remember($cache_key, 5 * 60, function () use ($table) {
 
             $fields = \Schema::getColumnListing($table);
