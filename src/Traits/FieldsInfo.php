@@ -11,7 +11,6 @@ trait FieldsInfo
 
     public static function bootFieldsInfo()
     {
-        ray('bootFieldsInfo');
         self::$use_cache = config('table_struct.use_cache');
     }
 
@@ -28,7 +27,6 @@ trait FieldsInfo
         $table = with(new $className)->getTable();
 
         $cache_key = 'TABLE_STRUCT.HASFIELD.' . strtoupper($table) . '.' . strtoupper($field);
-        Cache::forget($cache_key);
         $all_fields = self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return \Schema::getColumnListing($table);
         }) : \Schema::getColumnListing($table);
@@ -47,7 +45,6 @@ trait FieldsInfo
         $className = get_called_class();
         $table = with(new $className)->getTable();
         $cache_key = 'TABLE_STRUCT.ALLFIELDS.' . strtoupper($table);
-        Cache::forget($cache_key);
         $all_fields = self::$use_cache ? Cache::remember($cache_key, 5 * 60, function () use ($table) {
             return \Schema::getColumnListing($table);
         }) : \Schema::getColumnListing($table);
